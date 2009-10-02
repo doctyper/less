@@ -17,6 +17,7 @@ end
 # Argument defaults
 options = {
   :watch => false,
+  :pretty => false,
   :compress => false,
   :debug => false,
   :growl => false,
@@ -49,6 +50,11 @@ opts = OptionParser.new do |o|
   o.on("--no-color", "suppress color in output") do
     options[:color] = false
   end
+  
+   # Pretty print CSS file
+   o.on("-p", "--pretty", "Pretty print CSS file") do
+     options[:pretty] = true
+   end
   
   # Compression needs a proper algorithm
   #

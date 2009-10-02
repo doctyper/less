@@ -158,9 +158,23 @@ module Less
           "#{[path.reject(&:empty?).join.strip,
           *@set.map(&:name)].uniq * ', '} {#{content}}\n" : ""
 
-        css = ruleset + elements.map do |i|
-          i.to_css(path)
-        end.reject(&:empty?).join
+        # css = ruleset + elements.map do |i|
+        #   i.to_css(path)
+        # end.reject(&:empty?).join
+        if root?
+          css = ruleset + rules.map do |i|
+            begin
+              i.to_css(path)
+            rescue ArgumentError
+              i.to_css
+            end
+          end.reject(&:empty?).join          
+        else 
+          css = ruleset + elements.map do |i|
+            i.to_css(path)
+          end.reject(&:empty?).join          
+        end
+        
         path.pop; path.pop
         css
       end

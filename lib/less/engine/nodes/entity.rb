@@ -62,6 +62,13 @@ module Less
     end
     
     #
+    # So we can pull out and display comments.
+    #
+    class Comment < String
+      include Entity
+    end
+    
+    #
     # + * - /
     #
     class Operator < String

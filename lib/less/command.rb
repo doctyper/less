@@ -11,6 +11,7 @@ module Less
     end
 
     def watch?()    @options[:watch]    end
+    def pretty?()   @options[:pretty]   end
     def compress?() @options[:compress] end
     def debug?()    @options[:debug]    end
 
@@ -55,6 +56,10 @@ module Less
       begin
         # Create a new Less object with the contents of a file
         css = Less::Engine.new(File.new(@source), @options).to_css
+        
+        # Pretty print if flagged
+        css = css.gsub(/  /, "\t").gsub(/\{ /, "{\n\t").gsub(/ \}/, "\n}").gsub(/\}/, "}\n") if pretty?
+        
         css = css.delete " \n" if compress?
 
         File.open( @destination, "w" ) do |file|
