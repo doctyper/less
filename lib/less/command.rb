@@ -58,7 +58,10 @@ module Less
         css = Less::Engine.new(File.new(@source), @options).to_css
         
         # Pretty print if flagged
-        css = css.gsub(/  /, "\t").gsub(/\{ /, "{\n\t").gsub(/ \}/, "\n}").gsub(/\}/, "}\n") if pretty?
+        # Replaces soft tabs with hard tabs
+        # One line per CSS rule
+        # Inserts a line break between selector groups
+        css = css.gsub(/^  /, "\t").gsub(/\{ ([a-zA-Z\_\*\-])/, "{\n\t\\1").gsub(/(\;) \}$/, "\\1\n}").gsub(/^\}$/, "}\n") if pretty?
         
         css = css.delete " \n" if compress?
 
