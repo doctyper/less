@@ -52,7 +52,7 @@ opts = OptionParser.new do |o|
   end
   
    # Pretty print CSS file
-   o.on("-p", "--pretty", "Pretty print CSS file") do
+   o.on("-p", "--pretty", "Pretty print output, preserve comments") do
      options[:pretty] = true
    end
   

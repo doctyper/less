@@ -16,8 +16,15 @@ module Less
     rule comment
       # ws '/*' (!'*/' . )* '*/' ws / ws '//' (!"\n" .)* "\n" ws
       (ws '/*' (!'*/' . )* '*/' ws / ws '//' (!"\n" .)* "\n" ws) {
+        
+        # Check if pretty print is enabled
+        def pretty?()   $options[:pretty]   end
+        
         def build env
-          env << Node::Comment.new(text_value)
+          
+          # Only define if pretty print is on
+          # Otherwise comments are ignored
+          env << Node::Comment.new(text_value) if pretty?
         end
       }
     end
