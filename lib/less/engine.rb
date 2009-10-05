@@ -25,11 +25,6 @@ module Less
       end
       
       @options = options
-      
-      # Hack? I need to reference options from less.tt
-      # But maybe a global variable isn't the best way to do this
-      $options = @options
-      
       @parser = StyleSheetParser.new
     end
     
