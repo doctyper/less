@@ -79,6 +79,7 @@ module Less
       def elements;    @rules.select {|r| r.kind_of?     Element  } end
       def mixins;      @rules.select {|r| r.instance_of? Mixin    } end
       def parameters;  []                                           end
+      def elements_and_comments; @rules.select {|r| (r.kind_of? Element) || (r.instance_of? Comment) } end
 
       # Select a child element
       # TODO: Implement full selector syntax & merge with descend()
@@ -145,7 +146,7 @@ module Less
       #
       # Entry point for the css conversion
       #
-      def to_css path = []
+      def to_css path = [], minify = true
         path << @selector.to_css << name unless root?
 
         content = properties.map do |i|
@@ -161,8 +162,8 @@ module Less
         # css = ruleset + elements.map do |i|
         #   i.to_css(path)
         # end.reject(&:empty?).join
-        if root?
-          css = ruleset + rules.map do |i|
+        if root? && !minify
+          css = ruleset + elements_and_comments.map do |i|
             begin
               i.to_css(path)
             rescue ArgumentError

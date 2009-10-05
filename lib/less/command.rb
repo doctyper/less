@@ -11,7 +11,7 @@ module Less
     end
 
     def watch?()    @options[:watch]    end
-    def pretty?()   @options[:pretty]   end
+    def minify?()   @options[:minify]   end
     def compress?() @options[:compress] end
     def debug?()    @options[:debug]    end
 
@@ -61,9 +61,9 @@ module Less
         # Replaces soft tabs with hard tabs
         # One line per CSS rule
         # Inserts a line break between selector groups
-        css = css.gsub(/^  /, "\t").gsub(/\{ ([a-zA-Z\_\*\-])/, "{\n\t\\1").gsub(/(\;) \}$/, "\\1\n}").gsub(/^\}$/, "}\n") if pretty?
+        css = css.gsub(/^  /, "\t").gsub(/\{ ([a-zA-Z\_\*\-])/, "{\n\t\\1").gsub(/(\;) \}$/, "\\1\n}").gsub(/^\}$/, "}\n") unless minify?
         
-        css = css.delete " \n" if compress?
+        css = css.delete " \n" if minify?
 
         File.open( @destination, "w" ) do |file|
           file.write css
