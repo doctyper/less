@@ -63,8 +63,6 @@ module Less
         # Inserts a line break between selector groups
         css = css.gsub(/^  /, "\t").gsub(/\{ ([a-zA-Z\_\*\-])/, "{\n\t\\1").gsub(/(\;) \}$/, "\\1\n}").gsub(/^\}$/, "}\n") unless minify?
         
-        css = css.delete " \n" if minify?
-
         File.open( @destination, "w" ) do |file|
           file.write css
         end
