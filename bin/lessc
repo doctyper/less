@@ -17,7 +17,7 @@ end
 # Argument defaults
 options = {
   :watch => false,
-  :minify => true,
+  :pretty => false,
   :compress => false,
   :debug => false,
   :growl => false,
@@ -51,9 +51,9 @@ opts = OptionParser.new do |o|
     options[:color] = false
   end
     
-  # Don't minify
-  o.on("--no-minify", "don't minify output") do
-    options[:minify] = false
+  # Pretty print output
+  o.on("--pretty", "pretty print output with hard tabs and line breaks") do
+    options[:pretty] = true
   end
   
   # Compression needs a proper algorithm

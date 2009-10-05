@@ -146,7 +146,7 @@ module Less
       #
       # Entry point for the css conversion
       #
-      def to_css path = [], minify = true
+      def to_css path = [], include_comments = true
         path << @selector.to_css << name unless root?
 
         content = properties.map do |i|
@@ -159,10 +159,7 @@ module Less
           "#{[path.reject(&:empty?).join.strip,
           *@set.map(&:name)].uniq * ', '} {#{content}}\n" : ""
 
-        # css = ruleset + elements.map do |i|
-        #   i.to_css(path)
-        # end.reject(&:empty?).join
-        if root? && !minify
+        if root? && include_comments
           css = ruleset + elements_and_comments.map do |i|
             begin
               i.to_css(path)

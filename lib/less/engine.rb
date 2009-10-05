@@ -27,9 +27,7 @@ module Less
       @options = options
       @parser = StyleSheetParser.new
     end
-    
-    def minify?() @options[:minify] end
-    
+        
     def parse build = true, env = Node::Element.new
       root = @parser.parse(self.prepare)
       
@@ -46,7 +44,7 @@ module Less
     alias :to_tree :parse
     
     def to_css
-      @css || @css = self.parse.group.to_css([], minify?)
+      @css || @css = self.parse.group.to_css
     end
     
     def prepare
