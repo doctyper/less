@@ -14,12 +14,20 @@ module Less
     end
 
     rule comment
+      css_comment / less_comment
+    end
+
+    rule css_comment
       # ws '/*' (!'*/' . )* '*/' ws / ws '//' (!"\n" .)* "\n" ws
-      (ws '/*' (!'*/' . )* '*/' ws / ws '//' (!"\n" .)* "\n" ws) {
+      ws '/*' (!'*/' . )* '*/' ws {
         def build env
           env << Node::Comment.new(text_value)
         end
       }
+    end
+    
+    rule less_comment
+      ws '//' (!"\n" .)* "\n" ws
     end
 
     #

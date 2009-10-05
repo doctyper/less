@@ -28,6 +28,8 @@ module Less
       @parser = StyleSheetParser.new
     end
     
+    def minify?() @options[:minify] end
+    
     def parse build = true, env = Node::Element.new
       root = @parser.parse(self.prepare)
       
@@ -35,7 +37,6 @@ module Less
       
       if root
         @tree = root.build env.tap {|e| e.file = @path }
-        # puts @tree.rules
       else
         raise SyntaxError, @parser.failure_message(@options[:color])
       end
@@ -45,7 +46,7 @@ module Less
     alias :to_tree :parse
     
     def to_css
-      @css || @css = self.parse.group.to_css
+      @css || @css = self.parse.group.to_css([], minify?)
     end
     
     def prepare
