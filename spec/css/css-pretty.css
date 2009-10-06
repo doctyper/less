@@ -1,0 +1,31 @@
+.grey {
+	color: #666666;
+	background-color: #ffffff;
+}
+
+.light-grey {
+	color: #cccccc;
+}
+
+.centerText {
+	text-align: center;
+}
+
+.rightFloat, .otherRightFloat {
+	float: right;
+	display: inline;
+}
+
+.leftFloat {
+	float: left;
+	display: inline;
+}
+
+.inline {
+	display: inline;
+}
+
+.hide {
+	display: none;
+}
+
