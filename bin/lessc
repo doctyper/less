@@ -53,7 +53,7 @@ opts = OptionParser.new do |o|
   end
     
   # Pretty print output
-  o.on("-p", "--pretty", "pretty print output with hard tabs and line breaks") do
+  o.on("-p", "--pretty", "pretty print output with hard tabs and line breaks ") do
     options[:pretty] = true
   end
   
