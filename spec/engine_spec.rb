@@ -1,11 +1,11 @@
 require 'spec/spec_helper'
 
 module LessEngineSpecHelper
-  def lessify arg
+  def lessify arg, options = {}
     if arg.is_a? String or arg.is_a? File
-      return Less::Engine.new(arg).to_css
+      return Less::Engine.new(arg, options).to_css
     else
-      lessify File.new("spec/less/#{arg.to_s.gsub('_', '-')}.less")
+      lessify File.new("spec/less/#{arg.to_s.gsub('_', '-')}.less"), options
     end
   end
   
@@ -102,6 +102,10 @@ describe Less::Engine do
     
     it "should work with import" do
       lessify(:import).should == css(:import)
+    end
+    
+    it "should pretty-print" do
+      lessify(:css_pretty, {:pretty => true}).should == css(:css_pretty)
     end
     
     it "should parse a big file"

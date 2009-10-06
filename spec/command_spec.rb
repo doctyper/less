@@ -6,7 +6,7 @@ module LessCommandSpecHelper
   end
 
   def valid_options
-    {:destination => File.dirname(__FILE__) + '/spec.css', :watch => true, :debug => false}.merge(required_options)
+    {:destination => File.dirname(__FILE__) + '/spec.css', :watch => true, :pretty => true, :debug => false}.merge(required_options)
   end
 end
 
@@ -40,12 +40,16 @@ describe Less::Command do
       @command.source.should == required_options[:source]
     end
 
-    it "should set the @destionation" do
+    it "should set the @destination" do
       @command.destination.should == valid_options[:destination]
     end
 
     it "should set the watch" do
       @command.options[:watch].should == valid_options[:watch]
+    end
+
+    it "should set the pretty print" do
+      @command.options[:pretty].should == valid_options[:pretty]
     end
 
     it "should set the debug" do

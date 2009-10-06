@@ -11,8 +11,6 @@ module Less
     end
 
     def watch?()    @options[:watch]    end
-    def pretty?()   @options[:pretty]   end
-    def compress?() @options[:compress] end
     def debug?()    @options[:debug]    end
 
     # little function which allows us to
@@ -56,13 +54,7 @@ module Less
       begin
         # Create a new Less object with the contents of a file
         css = Less::Engine.new(File.new(@source), @options).to_css
-        
-        # Pretty print if flagged
-        # Replaces soft tabs with hard tabs
-        # One line per CSS rule
-        # Inserts a line break between selector groups
-        css = css.gsub(/^  /, "\t").gsub(/\{ ([a-zA-Z\_\*\-])/, "{\n\t\\1").gsub(/(\;) \}$/, "\\1\n}").gsub(/^\}$/, "}\n") if pretty?
-        
+                
         File.open( @destination, "w" ) do |file|
           file.write css
         end

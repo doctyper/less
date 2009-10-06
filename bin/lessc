@@ -18,7 +18,6 @@ end
 options = {
   :watch => false,
   :pretty => false,
-  :compress => false,
   :debug => false,
   :growl => false,
   :color => true
@@ -46,21 +45,17 @@ opts = OptionParser.new do |o|
     end
   end
   
+  o.separator ""
+
   # No color in output
   o.on("--no-color", "suppress color in output") do
     options[:color] = false
   end
     
   # Pretty print output
-  o.on("--pretty", "pretty print output with hard tabs and line breaks") do
+  o.on("-p", "--pretty", "pretty print output with hard tabs and line breaks") do
     options[:pretty] = true
   end
-  
-  # Compression needs a proper algorithm
-  #
-  #  o.on("-x", "--compress", "compress css file") do
-  #    options[:compress] = true
-  #  end
   
   o.separator ""
 

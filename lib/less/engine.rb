@@ -27,7 +27,9 @@ module Less
       @options = options
       @parser = StyleSheetParser.new
     end
-        
+    
+    def pretty?()   @options[:pretty]   end
+    
     def parse build = true, env = Node::Element.new
       root = @parser.parse(self.prepare)
       
@@ -44,11 +46,22 @@ module Less
     alias :to_tree :parse
     
     def to_css
-      @css || @css = self.parse.group.to_css
+      @css =  if pretty?
+        prettify self.parse.group.to_css
+      else 
+        self.parse.group.to_css
+      end
     end
     
     def prepare
       @less.gsub(/\r\n/, "\n").gsub(/\t/, '  ')
+    end
+    
+    def prettify css
+      # Replaces soft tabs with hard tabs
+      # One line per CSS rule
+      # Inserts a line break between selector groups
+      css.gsub(/^  /, "\t").gsub(/\{ ([a-zA-Z\_\*\-])/, "{\n\t\\1").gsub(/(\;) \}$/, "\\1\n}").gsub(/^\}$/, "}\n")
     end
   end
 end

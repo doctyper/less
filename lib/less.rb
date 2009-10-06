@@ -27,7 +27,7 @@ module Less
     File.read( File.join( File.dirname(__FILE__), '..', 'VERSION') ).strip
   end
   
-  def self.parse less
-    Engine.new(less).to_css
+  def self.parse less, options = {}
+    Engine.new(less, options).to_css
   end
 end
